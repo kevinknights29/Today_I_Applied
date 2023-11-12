@@ -24,6 +24,11 @@ main {
 }
 
 /* Classes */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
 .logo {
     display: flex;
     align-items: center;
