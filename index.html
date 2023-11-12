@@ -8,8 +8,10 @@
 </head>
 <body>
     <header>
-        <img src="job_application_icon.png" alt="logo" height="80">
-        <h1>Today I Applied</h1>
+        <div class="logo">
+            <img src="job_application_icon.png" alt="logo">
+            <h1>Today I Applied</h1>
+        </div>
         <button>Share a Job</button>
     </header>
     
@@ -52,43 +54,86 @@
             <ul>
                 <li>
                     <div class="listing">
-                        <p>Role: Data Engineer</p>
-                        <p>Company: <a href="">P&G</a></p>
-                        <p>Location: Panama City, Panamá, Panama</p>
-                        <p><a href="https://www.pgcareers.com/global/en/job/R000088388/Data-Engineer?source=RS_LINKEDIN" target="_blank">Apply</a></p>
-                        <p><span>#engineering#</span></p>
-                        <div>
+                        <div class="details">
+                            <!-- separated p tags -->
+                            <!-- <p>Data Engineer</p>
+                            <p>Company: <a href="">P&G</a></p>
+                            <p>Location: Panama City, Panamá, Panama</p> -->
+                            
+                            <!-- consolidated p tag -->
+                            <!-- <p>| Data Engineer | P&G | Panama City, Panama |</p> -->
+
+                            <!-- table -->
+                            <table>
+                                <tr>
+                                    <th>Role</th>
+                                    <td>Data Engineer</td>
+                                </tr>
+                                <tr>
+                                    <th>Company</th>
+                                    <td>P&amp;G</td>
+                                </tr>
+                                <tr>
+                                    <th>Location</th>
+                                    <td>Panama City, Panama</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="application">
+                            <button onclick="window.open('https://www.pgcareers.com/global/en/job/R000088388/Data-Engineer?source=RS_LINKEDIN', '_blank')">Apply</button>
+                        </div>
+                        <div class="tags">
+                            <span>#engineering#</span>
+                        </div>
+                        <div class="reactions">
                             <button>👍 <strong>24</strong></button>
                             <button>🚩 <strong>0</strong></button>
                             <button>✅ <strong>1</strong></button>
+                            <button>💬 <strong>0</strong></button>
                         </div>
                     </div>
                 </li>
                 <li>
                     <div class="listing">
-                        <p>Role: Associate Security Engineer</p>
-                        <p>Company: <a href="">Hitachi Rail</a></p>
-                        <p>Location: Panama City, Panamá, Panama</p>
-                        <p><a href="https://careers.hitachi.com/jobs/11888033-associate-security-engineer" target="_blank">Apply</a></p>
-                        <p><span>#engineering#</span></p>
-                        <div>
+                        <div class="details">
+                            <!-- separated p tags -->
+                            <p>Role: Associate Security Engineer</p>
+                            <p>Company: <a href="">Hitachi Rail</a></p>
+                            <p>Location: Panama City, Panamá, Panama</p>
+                        </div>
+                        <div class="application">
+                            <button onclick="window.open('https://careers.hitachi.com/jobs/11888033-associate-security-engineer', '_blank')">Apply</button>
+                        </div>
+                        <div class="tags">
+                            <span>#engineering#</span>
+                        </div>
+                        <div class="reactions">
                             <button>👍 <strong>4</strong></button>
                             <button>🚩 <strong>1</strong></button>
                             <button>✅ <strong>2</strong></button>
+                            <button>💬 <strong>0</strong></button>
                         </div>
                     </div>
                 </li>
                 <li>
                     <div class="listing">
-                        <p>Role: Data Analyst</p>
-                        <p>Company: <a href="">Experien</a></p>
-                        <p>Location: Panama City, Panamá, Panama</p>
-                        <p><a href="https://jobs.smartrecruiters.com/Experian/743999941405913-analista-de-data?source=Linkedin" target="_blank">Apply</a></p>
-                        <p><span>#data#</span></p>
-                        <div>
+                        <div class="details">
+                            <!-- separated p tags -->
+                            <p>Role: Data Analyst</p>
+                            <p>Company: <a href="">Experien</a></p>
+                            <p>Location: Panama City, Panamá, Panama</p>
+                        </div>
+                        <div class="application">
+                            <button onclick="window.open('https://jobs.smartrecruiters.com/Experian/743999941405913-analista-de-data?source=Linkedin', '_blank')">Apply</button>
+                        </div>
+                        <div class="tags">
+                            <span>#data#</span>
+                        </div>
+                        <div class="reactions">
                             <button>👍 <strong>0</strong></button>
                             <button>🚩 <strong>6</strong></button>
                             <button>✅ <strong>0</strong></button>
+                            <button>💬 <strong>0</strong></button>
                         </div>
                     </div>
             </ul>
