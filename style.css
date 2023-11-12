@@ -6,29 +6,75 @@
 /* Sections */
 body {
     margin: 0;
-    padding: 40px;
+    padding: 48px;
 }
 
 header {
-    margin-bottom: 40px;
+    padding: 12px;
+    margin-bottom: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+main {
+    display: grid;
+    grid-template-columns: 204px 1fr;
+    gap: 24px;
 }
 
 /* Classes */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
 .job-form {
-    padding: 16px 40px;
-    margin-bottom: 40px;
+    padding: 12px 48px;
+    margin-bottom: 48px;
 }
 
 .listing {
-    padding: 16px 24px;
-    margin-bottom: 16px;
+    padding: 12px 24px;
+    margin-bottom: 12px;
+    display: grid;
+    grid-template-columns: 1fr 120px 120px 72px;
+    align-items: center;
+    gap: 24px;
+    border: 2px solid black;
+    border-radius: 6px;
 }
 
-.listing p {
-    line-height: 0.8;
+.application {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.tags {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.reactions {
+    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
 }
 
 /* Elements */
+.logo img {
+    width: 96px;
+    height: 96px;
+}
+
 h1 {
     font-size: 80px;
     font-weight: 700;
