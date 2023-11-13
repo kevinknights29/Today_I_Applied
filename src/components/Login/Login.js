@@ -11,8 +11,8 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <button className="login" onClick={() => setShow(!show)}>
+    <div className="login">
+      <button onClick={() => setShow(!show)}>
         <img src={login_icon} alt="login_icon"></img>
         <p>Login</p>
       </button>
