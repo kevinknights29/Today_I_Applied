@@ -70,6 +70,10 @@ main {
   margin: 0 auto;
 }
 
+.login {
+  margin-left: auto;
+}
+
 .sign-up-form,
 .login-form {
   height: 396px;
@@ -145,6 +149,27 @@ text-align: center;
 }
 
 /* Class Elements */
+.login button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.login p {
+  padding: 0px;
+  margin: 0px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.login img {
+  width: 60px;
+  height: 60px;
+  padding: 0px;
+  margin: 0px;
+}
+
 .sign-up-form form,
 .login-form form {
   margin-top: 24px;
@@ -161,6 +186,7 @@ text-align: center;
   color: white;
   font-weight: bold;
   margin-top: 6px;
+  padding-top: 6px;
   align-self: center;
 }
 
