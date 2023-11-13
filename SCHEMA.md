@@ -32,6 +32,7 @@ description: job information.
 description: tag which categorizes jobs listed.
 
 - id (integer, primary key)
+- user_id (integer, foreign key references users.id)
 - job_id (integer, foreign key references jobs.id)
 - tags (string)
 - created_at (timestamp)
