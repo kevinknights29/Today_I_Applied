@@ -1,11 +1,36 @@
+import { createClient } from "@supabase/supabase-js";
 import React, { useState } from "react";
 
 function LoginForm(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const handleSubmit = (event) => {
+  const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
+  const supabaseKey = process.env.REACT_APP_SUPABASE_API_KEY;
+  /**
+   * Handles the form submission for the login form.
+   * Prevents the default form behavior, creates a Supabase client, and authenticates with Supabase credentials.
+   * @param {Event} event - The form submission event.
+   */
+  const handleSubmit = async (event) => {
+    // Prevent the default form behavior
     event.preventDefault();
     console.log(`Email: ${email}, Password: ${password}`);
+
+    // Create a single supabase client for interacting with your database
+    console.log(supabaseUrl, supabaseKey);
+    const supabase = createClient(supabaseUrl, supabaseKey);
+
+    // Authenticate with your Supabase credentials
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: email,
+      password: password,
+    });
+
+    if (error) {
+      console.error(error);
+    } else {
+      console.log("User authenticated successfully:", data);
+    }
   };
 
   return (
