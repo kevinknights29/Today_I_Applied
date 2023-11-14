@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
+import ListingForm from "../ListingForm/ListingForm";
 import logo from "../../assets/icons/icon.png";
 
 const Header = () => {
+  const [show, setShow] = useState(false);
+
   return (
     <div>
       <header>
@@ -10,9 +13,12 @@ const Header = () => {
           <h1>Today I Applied</h1>
         </div>
         <div className="share">
-          <button id="share-btn">Share Job</button>
+          <button id="share-btn" onClick={() => setShow(!show)}>
+            Share Job
+          </button>
         </div>
       </header>
+      {show ? <ListingForm /> : null}
     </div>
   );
 };
