@@ -4,7 +4,7 @@ import LoginForm from "../LoginForm/LoginForm";
 import SignUpForm from "../SignUpForm/SignUpForm";
 
 const Login = () => {
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(false);
   const [currentForm, setCurrentForm] = useState("login");
   const handleFormSwitch = (formName) => {
     setCurrentForm(formName);
