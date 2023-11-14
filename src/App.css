@@ -102,10 +102,6 @@ main {
   border-radius: 6px;
 }
 
-.hidden {
-  display: none !important;
-}
-
 .listing {
   padding: 12px 24px;
   margin-bottom: 12px;
