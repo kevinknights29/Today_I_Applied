@@ -29,6 +29,10 @@ const CategoryFilter = () => {
     <div>
       <aside className="sidebar">
         <ul>
+          <li>
+            <button>All</button>
+          </li>
+
           {categories.map((category) => (
             <li key={category.id}>
               <CategoryCard category={category} />
