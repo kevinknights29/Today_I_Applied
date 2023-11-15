@@ -13,7 +13,7 @@ const ListingForm = () => {
   const [roleName, setRole] = useState("");
   const [companyName, setCompanyName] = useState("");
   const [applicationUrl, setApplicationUrl] = useState("");
-  const [location, setLocation] = useState("");
+  const [location, setLocation] = useState("Panama City, Panama"); // Default value
   const [tags, setTags] = useState("");
 
   /**
@@ -76,7 +76,7 @@ const ListingForm = () => {
     // Prevent the default form behavior
     event.preventDefault();
     console.log(
-      `Role: ${roleName}, Company: ${companyName}, Application URL: ${applicationUrl}`
+      `Role: ${roleName}, Company: ${companyName}, Application URL: ${applicationUrl}, Location: ${location}, Tags: ${tags}`
     );
 
     // Create a single supabase client for interacting with your database
@@ -90,25 +90,25 @@ const ListingForm = () => {
     console.log(user.id);
 
     // Insert a new job
-    const { data, error } = await supabase
-      .from("jobs")
-      .insert([
-        {
-          user_id: user.id,
-          role: roleName,
-          company: companyName,
-          url: applicationUrl,
-          location: location,
-          tags: [tags],
-        },
-      ])
-      .select();
+    // const { data, error } = await supabase
+    //   .from("jobs")
+    //   .insert([
+    //     {
+    //       user_id: user.id,
+    //       role: roleName,
+    //       company: companyName,
+    //       url: applicationUrl,
+    //       location: location,
+    //       tags: [tags],
+    //     },
+    //   ])
+    //   .select();
 
-    if (error) {
-      console.error(error);
-    } else {
-      console.log("Job inserted successfully:", data);
-    }
+    // if (error) {
+    //   console.error(error);
+    // } else {
+    //   console.log("Job inserted successfully:", data);
+    // }
   };
 
   return (
