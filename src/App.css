@@ -256,6 +256,10 @@ text-align: center;
   font-weight: bold;
 }
 
+.details td {
+  padding-left: 24px;
+}
+
 /* Elements */
 
 button {
