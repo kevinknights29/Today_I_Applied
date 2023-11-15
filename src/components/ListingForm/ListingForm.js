@@ -1,6 +1,11 @@
 import { createClient } from "@supabase/supabase-js";
 import React, { useState } from "react";
 
+// Create a single supabase client for interacting with your database
+const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
+const supabaseKey = process.env.REACT_APP_SUPABASE_API_KEY;
+const supabase = createClient(supabaseUrl, supabaseKey);
+
 /**
  * A form component for submitting job listings.
  *
@@ -15,12 +20,6 @@ const ListingForm = () => {
   const [applicationUrl, setApplicationUrl] = useState("");
   const [location, setLocation] = useState("Panama City, Panama"); // Default value
   const [tags, setTags] = useState("");
-
-  /**
-   * Supabase URL and API key.
-   */
-  const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
-  const supabaseKey = process.env.REACT_APP_SUPABASE_API_KEY;
 
   /**
    * Updates the roleName state variable.
@@ -78,10 +77,6 @@ const ListingForm = () => {
     console.log(
       `Role: ${roleName}, Company: ${companyName}, Application URL: ${applicationUrl}, Location: ${location}, Tags: ${tags}`
     );
-
-    // Create a single supabase client for interacting with your database
-    console.log(supabaseUrl, supabaseKey);
-    const supabase = createClient(supabaseUrl, supabaseKey);
 
     // Get Authenticated User ID
     const {
