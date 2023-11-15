@@ -1,12 +1,7 @@
-import { createClient } from "@supabase/supabase-js";
 import React from "react";
 import ListingCard from "../ListingCard/ListingCard";
 import { useState, useEffect } from "react";
-
-// Create a single supabase client for interacting with your database
-const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
-const supabaseKey = process.env.REACT_APP_SUPABASE_API_KEY;
-const supabase = createClient(supabaseUrl, supabaseKey);
+import supabase from "../../client/supabaseClient";
 
 const Listing = () => {
   // Define state for the jobs
