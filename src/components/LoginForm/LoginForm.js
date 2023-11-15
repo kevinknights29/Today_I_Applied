@@ -1,11 +1,14 @@
 import { createClient } from "@supabase/supabase-js";
 import React, { useState } from "react";
 
+// Create a single supabase client for interacting with your database
+const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
+const supabaseKey = process.env.REACT_APP_SUPABASE_API_KEY;
+const supabase = createClient(supabaseUrl, supabaseKey);
+
 function LoginForm(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
-  const supabaseKey = process.env.REACT_APP_SUPABASE_API_KEY;
   /**
    * Handles the form submission for the login form.
    * Prevents the default form behavior, creates a Supabase client, and authenticates with Supabase credentials.
@@ -15,10 +18,6 @@ function LoginForm(props) {
     // Prevent the default form behavior
     event.preventDefault();
     console.log(`Email: ${email}, Password: ${password}`);
-
-    // Create a single supabase client for interacting with your database
-    console.log(supabaseUrl, supabaseKey);
-    const supabase = createClient(supabaseUrl, supabaseKey);
 
     // Authenticate with your Supabase credentials
     const { data, error } = await supabase.auth.signInWithPassword({

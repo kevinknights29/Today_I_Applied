@@ -1,11 +1,14 @@
 import { createClient } from "@supabase/supabase-js";
 import React, { useState } from "react";
 
+// Create a single supabase client for interacting with your database
+const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
+const supabaseKey = process.env.REACT_APP_SUPABASE_API_KEY;
+const supabase = createClient(supabaseUrl, supabaseKey);
+
 function SignUpForm(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
-  const supabaseKey = process.env.REACT_APP_SUPABASE_API_KEY;
   /**
    * Handles form submission by inserting user data into a Supabase database.
    * @param {Event} event - The form submission event.
@@ -14,10 +17,6 @@ function SignUpForm(props) {
     // Prevent the default form behavior
     event.preventDefault();
     console.log(`Email: ${email}, Password: ${password}`);
-
-    // Create a single supabase client for interacting with your database
-    console.log(supabaseUrl, supabaseKey);
-    const supabase = createClient(supabaseUrl, supabaseKey);
 
     // Insert a new user into your table
     const { data, error } = await supabase.auth.signUp({
