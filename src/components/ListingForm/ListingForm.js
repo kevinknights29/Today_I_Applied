@@ -90,25 +90,25 @@ const ListingForm = () => {
     console.log(user.id);
 
     // Insert a new job
-    // const { data, error } = await supabase
-    //   .from("jobs")
-    //   .insert([
-    //     {
-    //       user_id: user.id,
-    //       role: roleName,
-    //       company: companyName,
-    //       url: applicationUrl,
-    //       location: location,
-    //       tags: [tags],
-    //     },
-    //   ])
-    //   .select();
+    const { data, error } = await supabase
+      .from("jobs")
+      .insert([
+        {
+          user_id: user.id,
+          role: roleName,
+          company: companyName,
+          url: applicationUrl,
+          location: location,
+          tags: [tags],
+        },
+      ])
+      .select();
 
-    // if (error) {
-    //   console.error(error);
-    // } else {
-    //   console.log("Job inserted successfully:", data);
-    // }
+    if (error) {
+      console.error(error);
+    } else {
+      console.log("Job inserted successfully:", data);
+    }
   };
 
   return (
