@@ -11,6 +11,9 @@ const ListingCard = (prop) => {
     tags,
   } = prop.job;
 
+  const likeValue = "like";
+  const redFlagValue = "red_flag";
+
   const [likes, setLikes] = useState(0);
   const [redFlags, setRedFlags] = useState(0);
   const [applications, setApplications] = useState(0);
@@ -62,17 +65,11 @@ const ListingCard = (prop) => {
   // Fetch reactions from the database when the component mounts
   useEffect(() => {
     const fetchReactions = async () => {
-      // Get Authenticated User ID
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      console.log(user.id);
-
-      let { data: count_likes, error_likes } = await supabase
+      let { error_likes, count: count_likes } = await supabase
         .from("reactions")
         .select("*", { count: "exact", head: true })
         .eq("job_id", id)
-        .eq("type", "like");
+        .eq("type", likeValue);
 
       if (error_likes) {
         console.error(error_likes);
@@ -81,11 +78,11 @@ const ListingCard = (prop) => {
         setLikes(count_likes === null ? 0 : count_likes);
       }
 
-      let { data: count_redFlags, error_redFlags } = await supabase
+      let { error_redFlags, count: count_redFlags } = await supabase
         .from("reactions")
         .select("*", { count: "exact", head: true })
         .eq("job_id", id)
-        .eq("type", "dislike");
+        .eq("type", redFlagValue);
 
       if (error_redFlags) {
         console.error(error_redFlags);
@@ -128,8 +125,8 @@ const ListingCard = (prop) => {
         <span>#{tags[0]}#</span>
       </div>
       <div className="reactions">
-        <button onClick={() => handleReaction("like")}>👍 {likes}</button>
-        <button onClick={() => handleReaction("red_flag")}>
+        <button onClick={() => handleReaction(likeValue)}>👍 {likes}</button>
+        <button onClick={() => handleReaction(redFlagValue)}>
           🚩 {redFlags}
         </button>
         <button>✅ {applications}</button>
