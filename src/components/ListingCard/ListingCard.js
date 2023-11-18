@@ -36,17 +36,16 @@ const ListingCard = (prop) => {
     if (error) {
       console.error(error);
     } else if (reaction.length === 0) {
-      let { data: r, error } = await supabase
+      let { data: row, error } = await supabase
         .from("reactions")
-        .insert({ job_id: id, user_id: user.id, type: type }, { upsert: true })
-        .select();
+        .insert({ job_id: id, user_id: user.id, type: type }, { upsert: true });
       if (error) {
         console.error(error);
       } else {
-        console.log("Insert reaction successfully:", r);
+        console.log("Insert reaction successfully:", row);
       }
     } else {
-      let { data: r, error } = await supabase
+      let { data: row, error } = await supabase
         .from("reactions")
         .update({ type: type })
         .eq("id", reaction[0].id)
@@ -54,10 +53,7 @@ const ListingCard = (prop) => {
       if (error) {
         console.error(error);
       } else {
-        console.log(
-          `Update reaction_id ${reaction[0].id} with ${type} successfully:, `
-        );
-        console.log("Update reaction successfully:", r);
+        console.log("Update reaction successfully:", row);
       }
     }
   };
