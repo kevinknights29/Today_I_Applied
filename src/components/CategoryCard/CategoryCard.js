@@ -1,10 +1,9 @@
 import React from "react";
 
-const CategoryCard = (prop) => {
-  const { category } = prop.category;
+const CategoryCard = ({ category, onCategoryFilter }) => {
   return (
     <div>
-      <button>{category}</button>
+      <button onClick={() => onCategoryFilter(category)}>{category}</button>
     </div>
   );
 };
