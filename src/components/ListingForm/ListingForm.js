@@ -14,7 +14,7 @@ const ListingForm = () => {
   const [companyName, setCompanyName] = useState("");
   const [applicationUrl, setApplicationUrl] = useState("");
   const [location, setLocation] = useState("Panama City, Panama"); // Default value
-  const [tags, setTags] = useState("");
+  const [tags, setTags] = useState("Engineering");
 
   /**
    * Updates the roleName state variable.
@@ -103,14 +103,14 @@ const ListingForm = () => {
 
   return (
     <div className="job-form" id="job-form-div">
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={(event) => handleSubmit(event)}>
         <label htmlFor="role">Role:</label>
         <input
           type="text"
           id="role"
           name="role"
           value={roleName}
-          onChange={handleRoleNameChange}
+          onChange={(event) => handleRoleNameChange(event)}
           required
         />
         <span>{200 - roleName.length}</span>
@@ -120,7 +120,7 @@ const ListingForm = () => {
           id="company"
           name="company"
           value={companyName}
-          onChange={handleCompanyNameChange}
+          onChange={(event) => handleCompanyNameChange(event)}
           required
         />
         <span>{200 - companyName.length}</span>
@@ -130,7 +130,7 @@ const ListingForm = () => {
           id="application-url"
           name="application-url"
           value={applicationUrl}
-          onChange={handleApplicationUrlChange}
+          onChange={(event) => handleApplicationUrlChange(event)}
           required
         />
         <span>{200 - applicationUrl.length}</span>
@@ -139,7 +139,7 @@ const ListingForm = () => {
           name="location"
           id="location"
           value={location}
-          onChange={handleLocationChange}
+          onChange={(event) => handleLocationChange(event)}
           required
         >
           <option value="Panama City, Panama">Panama City, Panama</option>
@@ -151,11 +151,11 @@ const ListingForm = () => {
           name="tags"
           id="tags"
           value={tags}
-          onChange={handleTagsChange}
+          onChange={(event) => handleTagsChange(event)}
           required
         >
-          <option value="engineering">Engineering</option>
-          <option value="data">Data</option>
+          <option value="Engineering">Engineering</option>
+          <option value="Data">Data</option>
         </select>
         <button type="submit">Submit</button>
       </form>
