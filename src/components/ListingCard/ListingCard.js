@@ -90,6 +90,18 @@ const ListingCard = (prop) => {
         console.log("Read redFlags successfully:", count_redFlags);
         setRedFlags(count_redFlags === null ? 0 : count_redFlags);
       }
+
+      let { error_comments, count: count_comments } = await supabase
+        .from("comments")
+        .select("*", { count: "exact", head: true })
+        .eq("job_id", id);
+
+      if (error_comments) {
+        console.error(error_comments);
+      } else {
+        console.log("Read comments successfully:", count_comments);
+        setComments(count_comments === null ? 0 : count_comments);
+      }
     };
     fetchReactions();
   }, []);
@@ -140,7 +152,7 @@ const ListingCard = (prop) => {
             <CommentView jobID={id} />
           </div>
           <div className="comments">
-            <CommentBox />
+            <CommentBox jobID={id} />
           </div>
         </div>
       ) : null}
