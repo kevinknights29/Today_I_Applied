@@ -8,14 +8,14 @@ const Footer = () => {
   return (
     <div className="footer">
       <footer>
-        <div class="feedback">
+        <div className="feedback">
           <button
             onClick={() => openLink("https://forms.gle/RmQxcnnaVokKqmzs5")}
           >
             Share Feedback
           </button>
         </div>
-        <div class="author">
+        <div className="author">
           <p>Build by Kevin K.</p>
         </div>
       </footer>
