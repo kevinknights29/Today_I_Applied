@@ -387,6 +387,10 @@ span {
       margin-bottom: 24px;
   }
 
+  .list {
+      height: 51vh;
+  }
+
   .listing {
       display: flex;
       flex-direction: column;
