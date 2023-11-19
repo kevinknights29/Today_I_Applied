@@ -1,19 +1,17 @@
 import React from "react";
 import supabase from "../../client/supabaseClient";
+import { getCurrentUserId } from "../../client/supabaseAuth";
 
 const ReactionButton = ({ jobId, emoji, count, type }) => {
   const handleReaction = async () => {
     // Get Authenticated User ID
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-    console.log(user.id);
+    const userID = await getCurrentUserId();
 
     let { data: reaction, error } = await supabase
       .from("reactions")
       .select("id")
       .eq("job_id", jobId)
-      .eq("user_id", user.id);
+      .eq("user_id", userID);
     console.log("Retrieved reaction:", reaction);
 
     if (error) {
@@ -21,7 +19,7 @@ const ReactionButton = ({ jobId, emoji, count, type }) => {
     } else if (reaction.length === 0) {
       let { data: row, error } = await supabase
         .from("reactions")
-        .insert({ job_id: jobId, user_id: user.id, type }, { upsert: true });
+        .insert({ job_id: jobId, user_id: userID, type }, { upsert: true });
       if (error) {
         console.error(error);
       } else {

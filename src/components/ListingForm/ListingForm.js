@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import supabase from "../../client/supabaseClient";
+import { getCurrentUserId } from "../../client/supabaseAuth";
 
 /**
  * A form component for submitting job listings.
@@ -69,22 +70,15 @@ const ListingForm = () => {
   const handleSubmit = async (event) => {
     // Prevent the default form behavior
     event.preventDefault();
-    console.log(
-      `Role: ${roleName}, Company: ${companyName}, Application URL: ${applicationUrl}, Location: ${location}, Tags: ${tags}`
-    );
 
-    // Get Authenticated User ID
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-    console.log(user.id);
+    const userID = await getCurrentUserId();
 
     // Insert a new job
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from("jobs")
       .insert([
         {
-          user_id: user.id,
+          user_id: userID,
           role: roleName,
           company: companyName,
           url: applicationUrl,
@@ -95,9 +89,9 @@ const ListingForm = () => {
       .select();
 
     if (error) {
-      console.error(error);
+      console.error(error.message);
     } else {
-      console.log("Job inserted successfully:", data);
+      console.log("Job inserted successfully!");
     }
   };
 
