@@ -19,45 +19,6 @@ const ListingCard = ({ job }) => {
   const [applications, setApplications] = useState(0);
   const [show, setShow] = useState(false);
 
-  const handleReaction = async (type) => {
-    // Get Authenticated User ID
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-    console.log(user.id);
-
-    let { data: reaction, error } = await supabase
-      .from("reactions")
-      .select("id")
-      .eq("job_id", id)
-      .eq("user_id", user.id);
-    console.log("Retrived reaction:", reaction);
-
-    if (error) {
-      console.error(error);
-    } else if (reaction.length === 0) {
-      let { data: row, error } = await supabase
-        .from("reactions")
-        .insert({ job_id: id, user_id: user.id, type: type }, { upsert: true });
-      if (error) {
-        console.error(error);
-      } else {
-        console.log("Insert reaction successfully:", row);
-      }
-    } else {
-      let { data: row, error } = await supabase
-        .from("reactions")
-        .update({ type: type })
-        .eq("id", reaction[0].id)
-        .select();
-      if (error) {
-        console.error(error);
-      } else {
-        console.log("Update reaction successfully:", row);
-      }
-    }
-  };
-
   const openLink = (link) => {
     window.open(link, "_blank");
   };
@@ -81,12 +42,14 @@ const ListingCard = ({ job }) => {
         </div>
         <div className="reactions">
           <ReactionButton
-            onClick={() => handleReaction("like")}
+            jobId={id}
+            type="like"
             emoji="👍"
             count={reactions.likes}
           />
           <ReactionButton
-            onClick={() => handleReaction("red_flag")}
+            jobId={id}
+            type="red_flag"
             emoji="🚩"
             count={reactions.redFlags}
           />
