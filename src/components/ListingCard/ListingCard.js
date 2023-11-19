@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import supabase from "../../client/supabaseClient";
+import React, { useState } from "react";
 import JobDetails from "../JobDetails/JobDetails";
 import ReactionButton from "../ReactionButton/ReactionButton";
 import CommentBox from "../CommentBox/CommentBox";
