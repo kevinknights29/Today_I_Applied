@@ -1,9 +1,9 @@
 import React from "react";
 
-const CategoryCard = ({ category, onCategoryFilter }) => {
+const CategoryCard = ({ category, onCategoryChange }) => {
   return (
     <div>
-      <button onClick={() => onCategoryFilter(category)}>{category}</button>
+      <button onClick={() => onCategoryChange(category)}>{category}</button>
     </div>
   );
 };

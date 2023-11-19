@@ -2,8 +2,11 @@ import React from "react";
 import ListingCard from "../ListingCard/ListingCard";
 import { useState, useEffect } from "react";
 import supabase from "../../client/supabaseClient";
+import { useCategory } from "../../context/CategoryContext";
 
-const Listing = ({ selectedCategory }) => {
+const Listing = () => {
+  const { selectedCategory } = useCategory();
+
   // Define state for the jobs
   const [jobs, setJobs] = useState([]);
 

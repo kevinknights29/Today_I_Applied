@@ -2,8 +2,11 @@ import React from "react";
 import { useState, useEffect } from "react";
 import supabase from "../../client/supabaseClient";
 import CategoryCard from "../CategoryCard/CategoryCard";
+import { useCategory } from "../../context/CategoryContext";
 
-const CategoryFilter = ({ onCategoryFilter }) => {
+const CategoryFilter = () => {
+  const { handleCategoryChange } = useCategory();
+
   // Define state for the categories
   const [categories, setCategories] = useState([]);
 
@@ -30,14 +33,14 @@ const CategoryFilter = ({ onCategoryFilter }) => {
       <aside className="sidebar">
         <ul>
           <li>
-            <button onClick={() => onCategoryFilter("All")}>All</button>
+            <button onClick={() => handleCategoryChange("All")}>All</button>
           </li>
 
           {categories.map((category) => (
             <li key={category.id}>
               <CategoryCard
                 category={category.category}
-                onCategoryFilter={onCategoryFilter}
+                onCategoryChange={handleCategoryChange}
               />
             </li>
           ))}
