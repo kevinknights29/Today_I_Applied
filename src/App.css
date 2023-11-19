@@ -423,6 +423,10 @@ span {
       margin-left: 0px;
   
   }
+
+  .footer button {
+    width: 20%;
+  }
   
 }
 
