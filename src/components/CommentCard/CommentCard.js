@@ -1,15 +1,8 @@
 import React from "react";
+import { formatDate } from "../../utils/dateUtils";
 
-const CommentCard = (comment) => {
-  const { content, created_at } = comment.comment;
-
-  // Convert the date format
-  const formattedDate = new Date(created_at).toLocaleDateString("en-US", {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+const CommentCard = ({ comment: { content, created_at } }) => {
+  const formattedDate = formatDate(created_at);
 
   return (
     <div className="comment-card">
@@ -19,4 +12,4 @@ const CommentCard = (comment) => {
   );
 };
 
-export default CommentCard;
+export default React.memo(CommentCard);

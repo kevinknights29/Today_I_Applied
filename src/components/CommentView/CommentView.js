@@ -1,28 +1,13 @@
 import React, { useEffect, useState } from "react";
 import supabase from "../../client/supabaseClient";
 import CommentCard from "../CommentCard/CommentCard";
+import useFetchComments from "../../hooks/useFetchComments";
 
 const CommentView = ({ jobID }) => {
-  // Define state for the jobs
-  const [comments, setComments] = useState([]);
+  const { comments, loading, error } = useFetchComments(jobID);
 
-  // Fetch the jobs from the database when the component mounts
-  useEffect(() => {
-    const fetchComments = async () => {
-      let { data: comments, error } = await supabase
-        .from("comments")
-        .select("id, content, created_at")
-        .eq("job_id", jobID);
-
-      if (error) {
-        console.error(error);
-      } else {
-        console.log("Read comments successfully:", comments);
-        setComments(comments);
-      }
-    };
-    fetchComments();
-  }, []);
+  if (loading) return <div>Loading comments...</div>;
+  if (error) return <div>Error fetching comments: {error}</div>;
 
   return (
     <div className="comments">

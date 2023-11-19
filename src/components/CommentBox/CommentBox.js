@@ -1,39 +1,47 @@
 import React, { useState } from "react";
 import supabase from "../../client/supabaseClient";
+import { getCurrentUserId } from "../../client/supabaseAuth";
 
 const CommentBox = ({ jobID }) => {
   const [comment, setComment] = useState("");
+  const [feedback, setFeedback] = useState("");
+  const maxCommentLength = 280;
+
   const handleCommentChange = (event) => {
-    setComment(event.target.value);
+    if (event.target.value.length <= maxCommentLength) {
+      setComment(event.target.value);
+    }
   };
 
   const handleSubmit = async (event) => {
-    // Prevent the default form behavior
     event.preventDefault();
-    console.log(`Comment: ${comment}`);
 
-    // Get Authenticated User ID
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-    console.log(user.id);
+    if (!comment.trim()) {
+      setFeedback("Comment cannot be empty");
+      return;
+    }
 
-    // Insert a new comment
-    const { data, error } = await supabase
-      .from("comments")
-      .insert([
-        {
-          user_id: user.id,
-          job_id: jobID,
-          content: comment,
-        },
-      ])
-      .select();
+    const userID = await getCurrentUserId();
+    if (!userID) {
+      setFeedback("You must be logged in to post a comment");
+      return;
+    }
+
+    const { error } = await supabase.from("comments").insert([
+      {
+        user_id: userID,
+        job_id: jobID,
+        content: comment,
+      },
+    ]);
 
     if (error) {
-      console.error(error);
+      console.error(error.message);
+      setFeedback("Failed to post comment. Please try again.");
     } else {
-      console.log("Comment inserted successfully:", data);
+      console.log("Comment inserted successfully!");
+      setFeedback("Comment posted successfully.");
+      setComment("");
     }
   };
 
@@ -46,9 +54,11 @@ const CommentBox = ({ jobID }) => {
         type="text"
         placeholder="Leave a Comment"
         onChange={(event) => handleCommentChange(event)}
+        maxLength={maxCommentLength}
       />
       <span>{280 - comment.length}</span>
       <button type="submit">Submit</button>
+      {feedback && <div className="feedback-message">{feedback}</div>}{" "}
     </form>
   );
 };
