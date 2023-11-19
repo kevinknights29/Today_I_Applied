@@ -4,6 +4,7 @@ import Login from "./components/Login/Login";
 import Header from "./components/Header/Header";
 import CategoryFilter from "./components/CategoryFilter/CategoryFilter";
 import Listing from "./components/Listing/Listing";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -20,6 +21,7 @@ function App() {
         <CategoryFilter onCategoryFilter={handleCategoryChange} />
         <Listing selectedCategory={selectedCategory} />
       </main>
+      <Footer />
     </div>
   );
 }
