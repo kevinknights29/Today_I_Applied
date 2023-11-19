@@ -1,10 +1,20 @@
 import React from "react";
 
-const CommentCard = ({ content, created_at }) => {
+const CommentCard = (comment) => {
+  const { content, created_at } = comment.comment;
+
+  // Convert the date format
+  const formattedDate = new Date(created_at).toLocaleDateString("en-US", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
   return (
     <div className="comment-card">
-      <span>{content}</span>
-      <span>{created_at}</span>
+      <span className="comment-content">{content}</span>
+      <span>{formattedDate}</span>
     </div>
   );
 };
