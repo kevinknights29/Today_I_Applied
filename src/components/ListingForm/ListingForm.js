@@ -2,109 +2,74 @@ import React, { useState } from "react";
 import supabase from "../../client/supabaseClient";
 import { getCurrentUserId } from "../../client/supabaseAuth";
 
-/**
- * A form component for submitting job listings.
- *
- * @returns {JSX.Element} The ListingForm component.
- */
 const ListingForm = () => {
-  /**
-   * State variables for the form inputs.
-   */
   const [roleName, setRole] = useState("");
   const [companyName, setCompanyName] = useState("");
   const [applicationUrl, setApplicationUrl] = useState("");
-  const [location, setLocation] = useState("Panama City, Panama"); // Default value
+  const [location, setLocation] = useState("Panama City, Panama");
   const [tags, setTags] = useState("Engineering");
+  const [feedback, setFeedback] = useState("");
 
-  /**
-   * Updates the roleName state variable.
-   *
-   * @param {Object} event - The input change event.
-   */
-  const handleRoleNameChange = (event) => {
-    setRole(event.target.value);
+  const handleEventChange = (event, handler) => {
+    handler(event.target.value);
   };
 
-  /**
-   * Updates the companyName state variable.
-   *
-   * @param {Object} event - The input change event.
-   */
-  const handleCompanyNameChange = (event) => {
-    setCompanyName(event.target.value);
+  const isValidUrl = (url) => {
+    try {
+      new URL(url);
+      return true;
+    } catch (_) {
+      return false;
+    }
   };
 
-  /**
-   * Updates the applicationUrl state variable.
-   *
-   * @param {Object} event - The input change event.
-   */
-  const handleApplicationUrlChange = (event) => {
-    setApplicationUrl(event.target.value);
-  };
-
-  /**
-   * Updates the location state variable.
-   *
-   * @param {Object} event - The input change event.
-   */
-  const handleLocationChange = (event) => {
-    setLocation(event.target.value);
-  };
-
-  /**
-   * Updates the tags state variable.
-   *
-   * @param {Object} event - The input change event.
-   */
-  const handleTagsChange = (event) => {
-    setTags(event.target.value);
-  };
-
-  /**
-   * Submits the form data to jobs table in the Supabase database.
-   *
-   * @param {Object} event - The form submit event.
-   */
   const handleSubmit = async (event) => {
-    // Prevent the default form behavior
     event.preventDefault();
-
     const userID = await getCurrentUserId();
 
-    // Insert a new job
-    const { error } = await supabase
-      .from("jobs")
-      .insert([
-        {
-          user_id: userID,
-          role: roleName,
-          company: companyName,
-          url: applicationUrl,
-          location: location,
-          tags: [tags],
-        },
-      ])
-      .select();
+    if (!userID) {
+      setFeedback("User must be logged in to post a job.");
+      return;
+    }
+
+    if (!isValidUrl(applicationUrl)) {
+      setFeedback("Please enter a valid URL.");
+      return;
+    }
+
+    const { error } = await supabase.from("jobs").insert([
+      {
+        user_id: userID,
+        role: roleName,
+        company: companyName,
+        url: applicationUrl,
+        location: location,
+        tags: [tags],
+      },
+    ]);
 
     if (error) {
-      console.error(error.message);
+      setFeedback("Error submitting the job: " + error.message);
     } else {
-      console.log("Job inserted successfully!");
+      setFeedback("Job inserted successfully!");
+      setRole("");
+      setCompanyName("");
+      setApplicationUrl("");
+      setLocation("Panama City, Panama");
+      setTags("Engineering");
     }
   };
 
   return (
     <div className="job-form" id="job-form-div">
-      <form onSubmit={(event) => handleSubmit(event)}>
+      <form onSubmit={handleSubmit}>
         <label htmlFor="role">Role:</label>
         <input
           type="text"
           id="role"
           name="role"
           value={roleName}
-          onChange={(event) => handleRoleNameChange(event)}
+          onChange={(event) => handleEventChange(event, setRole)}
           required
         />
         <span>{200 - roleName.length}</span>
@@ -114,7 +79,7 @@ const ListingForm = () => {
           id="company"
           name="company"
           value={companyName}
-          onChange={(event) => handleCompanyNameChange(event)}
+          onChange={(event) => handleEventChange(event, setCompanyName)}
           required
         />
         <span>{200 - companyName.length}</span>
@@ -124,7 +89,7 @@ const ListingForm = () => {
           id="application-url"
           name="application-url"
           value={applicationUrl}
-          onChange={(event) => handleApplicationUrlChange(event)}
+          onChange={(event) => handleEventChange(event, setApplicationUrl)}
           required
         />
         <span>{200 - applicationUrl.length}</span>
@@ -133,7 +98,7 @@ const ListingForm = () => {
           name="location"
           id="location"
           value={location}
-          onChange={(event) => handleLocationChange(event)}
+          onChange={(event) => handleEventChange(event, setLocation)}
           required
         >
           <option value="Panama City, Panama">Panama City, Panama</option>
@@ -145,7 +110,7 @@ const ListingForm = () => {
           name="tags"
           id="tags"
           value={tags}
-          onChange={(event) => handleTagsChange(event)}
+          onChange={(event) => handleEventChange(event, setTags)}
           required
         >
           <option value="Engineering">Engineering</option>
@@ -153,6 +118,7 @@ const ListingForm = () => {
         </select>
         <button type="submit">Submit</button>
       </form>
+      {feedback && <div className="feedback-message">{feedback}</div>}
     </div>
   );
 };

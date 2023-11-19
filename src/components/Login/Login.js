@@ -13,24 +13,26 @@ const Login = () => {
     setCurrentForm(formName);
   };
 
+  const renderForm = () => {
+    if (currentForm === "login") {
+      return <LoginForm onFormSwitch={handleFormSwitch} />;
+    } else {
+      return <SignUpForm onFormSwitch={handleFormSwitch} />;
+    }
+  };
+
   return (
     <div className="login">
       <button
         onClick={() => {
           setShow(!show);
         }}
-        disabled={userID ? true : false}
+        disabled={!!userID}
       >
         <img src={login_icon} alt="login_icon"></img>
         <p>{userID ? "Logged In" : "Log in"}</p>
       </button>
-      {show ? (
-        currentForm === "login" ? (
-          <LoginForm onFormSwitch={handleFormSwitch} />
-        ) : (
-          <SignUpForm onFormSwitch={handleFormSwitch} />
-        )
-      ) : null}
+      {show && renderForm()}
     </div>
   );
 };

@@ -4,23 +4,27 @@ import supabase from "../../client/supabaseClient";
 function SignUpForm(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  /**
-   * Handles form submission by inserting user data into a Supabase database.
-   * @param {Event} event - The form submission event.
-   */
-  const handleSubmit = async (event) => {
-    // Prevent the default form behavior
-    event.preventDefault();
+  const [feedback, setFeedback] = useState("");
 
-    // Insert a new user into your table
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setFeedback("");
+
+    if (!email || !password) {
+      setFeedback("Please enter both email and password.");
+      return;
+    }
+
     const { error } = await supabase.auth.signUp({
       email: email,
       password: password,
     });
 
     if (error) {
+      setFeedback("Failed to sign up: " + error.message);
       console.error(error.message);
     } else {
+      setFeedback("User registered successfully!");
       console.log("User inserted successfully:");
     }
   };
@@ -48,6 +52,7 @@ function SignUpForm(props) {
         />
         <button type="submit">Sign Up</button>
       </form>
+      {feedback && <div className="feedback-message">{feedback}</div>}
       <button onClick={() => props.onFormSwitch("login")}>
         Already have an account? <br /> Login here!
       </button>
