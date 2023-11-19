@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import supabase from "../../client/supabaseClient";
+import CommentBox from "../CommentBox/CommentBox";
+import CommentView from "../CommentView/CommentView";
 
 const ListingCard = (prop) => {
   const {
@@ -18,6 +20,8 @@ const ListingCard = (prop) => {
   const [redFlags, setRedFlags] = useState(0);
   const [applications, setApplications] = useState(0);
   const [comments, setComments] = useState(0);
+
+  const [show, setShow] = useState(false);
 
   const handleReaction = async (type) => {
     // Get Authenticated User ID
@@ -95,39 +99,51 @@ const ListingCard = (prop) => {
   };
 
   return (
-    <div className="listing">
-      <div className="details">
-        <table>
-          <tbody>
-            <tr>
-              <th>👤 Role</th>
-              <td>{roleName}</td>
-            </tr>
-            <tr>
-              <th>🏢 Company</th>
-              <td>{companyName}</td>
-            </tr>
-            <tr>
-              <th>📍 Location</th>
-              <td>{location}</td>
-            </tr>
-          </tbody>
-        </table>
+    <div className="listing-container">
+      <div className="listing">
+        <div className="details">
+          <table>
+            <tbody>
+              <tr>
+                <th>👤 Role</th>
+                <td>{roleName}</td>
+              </tr>
+              <tr>
+                <th>🏢 Company</th>
+                <td>{companyName}</td>
+              </tr>
+              <tr>
+                <th>📍 Location</th>
+                <td>{location}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div className="application">
+          <button onClick={() => openLink(applicationUrl)}>Apply</button>
+        </div>
+        <div className="tags">
+          <span>#{tags[0]}#</span>
+        </div>
+        <div className="reactions">
+          <button onClick={() => handleReaction(likeValue)}>👍 {likes}</button>
+          <button onClick={() => handleReaction(redFlagValue)}>
+            🚩 {redFlags}
+          </button>
+          <button>✅ {applications}</button>
+          <button onClick={() => setShow(!show)}>💬 {comments}</button>
+        </div>
       </div>
-      <div className="application">
-        <button onClick={() => openLink(applicationUrl)}>Apply</button>
-      </div>
-      <div className="tags">
-        <span>#{tags[0]}#</span>
-      </div>
-      <div className="reactions">
-        <button onClick={() => handleReaction(likeValue)}>👍 {likes}</button>
-        <button onClick={() => handleReaction(redFlagValue)}>
-          🚩 {redFlags}
-        </button>
-        <button>✅ {applications}</button>
-        <button>💬 {comments}</button>
-      </div>
+      {show ? (
+        <div>
+          <div>
+            <CommentView jobID={id} />
+          </div>
+          <div className="comments">
+            <CommentBox />
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 };
