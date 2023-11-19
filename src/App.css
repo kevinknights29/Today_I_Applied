@@ -62,7 +62,7 @@ main {
   display: grid;
   grid-template-columns: 204px 1fr;
   gap: 24px;
-  height: 50vh;
+  height: auto;
 }
 
 /* Classes */
@@ -104,6 +104,7 @@ main {
 }
 
 .list {
+  height: 57vh;
   overflow: scroll;
 }
 
@@ -161,6 +162,10 @@ main {
 .comment-content {
   text-align: left;
   text-transform: initial;
+}
+
+.footer {
+  margin: 24px 48px;
 }
 
 .author {
@@ -310,6 +315,22 @@ text-align: center;
   padding-left: 24px;
 }
 
+.footer form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer button {
+  width: 10%;
+  height: 48px;
+  font-weight: bold;
+}
+
+.footer p {
+  font-size: 16px;
+}
+
 /* Elements */
 
 button {
@@ -377,6 +398,7 @@ span {
 
   main {
       display: block;
+      height: auto;
   }
 
   .job-form {
