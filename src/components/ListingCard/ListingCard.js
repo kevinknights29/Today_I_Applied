@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import supabase from "../../client/supabaseClient";
+import JobDetails from "../JobDetails/JobDetails";
+import ReactionButton from "../ReactionButton/ReactionButton";
 import CommentBox from "../CommentBox/CommentBox";
 import CommentView from "../CommentView/CommentView";
+import useFetchReactions from "../../hooks/useFetchReactions";
 
-const ListingCard = (prop) => {
+const ListingCard = ({ job }) => {
   const {
     id,
     role: roleName,
@@ -11,16 +14,9 @@ const ListingCard = (prop) => {
     url: applicationUrl,
     location,
     tags,
-  } = prop.job;
-
-  const likeValue = "like";
-  const redFlagValue = "red_flag";
-
-  const [likes, setLikes] = useState(0);
-  const [redFlags, setRedFlags] = useState(0);
+  } = job;
+  const { reactions, loading, error } = useFetchReactions(id);
   const [applications, setApplications] = useState(0);
-  const [comments, setComments] = useState(0);
-
   const [show, setShow] = useState(false);
 
   const handleReaction = async (type) => {
@@ -62,75 +58,21 @@ const ListingCard = (prop) => {
     }
   };
 
-  // Fetch reactions from the database when the component mounts
-  useEffect(() => {
-    const fetchReactions = async () => {
-      let { error_likes, count: count_likes } = await supabase
-        .from("reactions")
-        .select("*", { count: "exact", head: true })
-        .eq("job_id", id)
-        .eq("type", likeValue);
-
-      if (error_likes) {
-        console.error(error_likes);
-      } else {
-        console.log("Read likes successfully:", count_likes);
-        setLikes(count_likes === null ? 0 : count_likes);
-      }
-
-      let { error_redFlags, count: count_redFlags } = await supabase
-        .from("reactions")
-        .select("*", { count: "exact", head: true })
-        .eq("job_id", id)
-        .eq("type", redFlagValue);
-
-      if (error_redFlags) {
-        console.error(error_redFlags);
-      } else {
-        console.log("Read redFlags successfully:", count_redFlags);
-        setRedFlags(count_redFlags === null ? 0 : count_redFlags);
-      }
-
-      let { error_comments, count: count_comments } = await supabase
-        .from("comments")
-        .select("*", { count: "exact", head: true })
-        .eq("job_id", id);
-
-      if (error_comments) {
-        console.error(error_comments);
-      } else {
-        console.log("Read comments successfully:", count_comments);
-        setComments(count_comments === null ? 0 : count_comments);
-      }
-    };
-    fetchReactions();
-  }, []);
-
   const openLink = (link) => {
     window.open(link, "_blank");
   };
 
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error fetching reactions: {error}</div>;
+
   return (
     <div className="listing-container">
       <div className="listing">
-        <div className="details">
-          <table>
-            <tbody>
-              <tr>
-                <th>👤 Role</th>
-                <td>{roleName}</td>
-              </tr>
-              <tr>
-                <th>🏢 Company</th>
-                <td>{companyName}</td>
-              </tr>
-              <tr>
-                <th>📍 Location</th>
-                <td>{location}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <JobDetails
+          roleName={roleName}
+          companyName={companyName}
+          location={location}
+        />
         <div className="application">
           <button onClick={() => openLink(applicationUrl)}>Apply</button>
         </div>
@@ -138,12 +80,20 @@ const ListingCard = (prop) => {
           <span>#{tags[0]}#</span>
         </div>
         <div className="reactions">
-          <button onClick={() => handleReaction(likeValue)}>👍 {likes}</button>
-          <button onClick={() => handleReaction(redFlagValue)}>
-            🚩 {redFlags}
-          </button>
+          <ReactionButton
+            onClick={() => handleReaction("like")}
+            emoji="👍"
+            count={reactions.likes}
+          />
+          <ReactionButton
+            onClick={() => handleReaction("red_flag")}
+            emoji="🚩"
+            count={reactions.redFlags}
+          />
           <button>✅ {applications}</button>
-          <button onClick={() => setShow(!show)}>💬 {comments}</button>
+          <button onClick={() => setShow(!show)}>
+            💬 {reactions.comments}
+          </button>
         </div>
       </div>
       {show ? (
@@ -160,4 +110,4 @@ const ListingCard = (prop) => {
   );
 };
 
-export default ListingCard;
+export default React.memo(ListingCard);
