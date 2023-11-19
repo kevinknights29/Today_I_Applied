@@ -25,7 +25,7 @@ const CommentView = ({ jobID }) => {
   }, []);
 
   return (
-    <div className="list">
+    <div className="comments">
       {comments.length === 0 ? (
         <span>No comments yet</span>
       ) : (
