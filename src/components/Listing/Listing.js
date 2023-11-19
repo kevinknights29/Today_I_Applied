@@ -41,7 +41,7 @@ const Listing = ({ selectedCategory }) => {
   }, [selectedCategory]);
 
   return (
-    <div>
+    <div className="list">
       <ul>
         {jobs.map((job) => (
           <li key={job.id}>
