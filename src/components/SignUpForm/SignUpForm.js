@@ -11,18 +11,17 @@ function SignUpForm(props) {
   const handleSubmit = async (event) => {
     // Prevent the default form behavior
     event.preventDefault();
-    console.log(`Email: ${email}, Password: ${password}`);
 
     // Insert a new user into your table
-    const { data, error } = await supabase.auth.signUp({
+    const { error } = await supabase.auth.signUp({
       email: email,
       password: password,
     });
 
     if (error) {
-      console.error(error);
+      console.error(error.message);
     } else {
-      console.log("User inserted successfully:", data);
+      console.log("User inserted successfully:");
     }
   };
 
