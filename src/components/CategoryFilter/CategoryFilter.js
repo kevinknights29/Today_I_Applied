@@ -1,32 +1,18 @@
 import React from "react";
-import { useState, useEffect } from "react";
-import supabase from "../../client/supabaseClient";
 import CategoryCard from "../CategoryCard/CategoryCard";
 import { useCategory } from "../../context/CategoryContext";
+import useFetchData from "../../hooks/useFetchData";
 
 const CategoryFilter = () => {
   const { handleCategoryChange } = useCategory();
+  const {
+    data: categories,
+    error,
+    loading,
+  } = useFetchData("categories", "id, category", 9);
 
-  // Define state for the categories
-  const [categories, setCategories] = useState([]);
-
-  // Fetch the job categories (tags) from the database when the component mounts
-  useEffect(() => {
-    const fetchCategories = async () => {
-      let { data: categories, error } = await supabase
-        .from("categories")
-        .select("id, category")
-        .range(0, 9);
-
-      if (error) {
-        console.error(error);
-      } else {
-        console.log("Read job categories successfully:", categories);
-        setCategories(categories);
-      }
-    };
-    fetchCategories();
-  }, []);
+  if (loading) return <div>Loading categories...</div>;
+  if (error) return <div>Error fetching categories: {error}</div>;
 
   return (
     <div>
