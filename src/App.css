@@ -147,6 +147,17 @@ main {
   margin-left: auto;
 }
 
+.comment-card {
+  margin: 6px 24px;
+  display: grid;
+  grid-template-columns: 1fr 240px;
+}
+
+.comment-content {
+  text-align: left;
+  text-transform: initial;
+}
+
 .author {
 text-align: center;
 }
@@ -266,7 +277,7 @@ text-align: center;
 .list ul{
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 12px;
 }
 
 .reactions button {
