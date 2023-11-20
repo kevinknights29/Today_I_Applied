@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react';
-import {getCurrentUserId} from './client/supabaseAuth';
+import {getCurrentUserId} from '../client/supabaseAuth';
 
 const useFetchUserID = () => {
   const [userID, setUserID] = useState(null);
