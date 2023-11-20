@@ -7,6 +7,7 @@ const CommentBox = ({jobID}) => {
   const [comment, setComment] = useState('');
   const [feedback, setFeedback] = useState('');
   const maxCommentLength = 280;
+  const userID = useFetchUserID();
 
   const handleCommentChange = (event) => {
     if (event.target.value.length <= maxCommentLength) {
@@ -22,7 +23,6 @@ const CommentBox = ({jobID}) => {
       return;
     }
 
-    const userID = useFetchUserID();
     if (!userID) {
       setFeedback('You must be logged in to post a comment');
       return;

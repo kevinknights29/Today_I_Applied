@@ -9,6 +9,7 @@ const ListingForm = () => {
   const [location, setLocation] = useState('Panama City, Panama');
   const [tags, setTags] = useState('Engineering');
   const [feedback, setFeedback] = useState('');
+  const userID = useFetchUserID();
 
   const handleEventChange = (event, handler) => {
     handler(event.target.value);
@@ -25,7 +26,6 @@ const ListingForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const userID = useFetchUserID();
 
     if (!userID) {
       setFeedback('User must be logged in to post a job.');
