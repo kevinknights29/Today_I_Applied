@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import supabase from '../../client/supabaseClient';
 import {getCurrentUserId} from '../../client/supabaseAuth';
+import PropTypes from 'prop-types';
 
 const CommentBox = ({jobID}) => {
   const [comment, setComment] = useState('');
@@ -61,6 +62,10 @@ const CommentBox = ({jobID}) => {
       {feedback && <div className="feedback-message">{feedback}</div>}{' '}
     </form>
   );
+};
+
+CommentBox.propTypes = {
+  jobID: PropTypes.string.isRequired,
 };
 
 export default CommentBox;

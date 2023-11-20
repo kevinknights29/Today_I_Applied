@@ -1,6 +1,7 @@
 import React from 'react';
 import CommentCard from '../CommentCard/CommentCard';
 import useFetchComments from '../../hooks/useFetchComments';
+import PropTypes from 'prop-types';
 
 const CommentView = ({jobID}) => {
   const {comments, loading, error} = useFetchComments(jobID);
@@ -23,6 +24,10 @@ const CommentView = ({jobID}) => {
       )}
     </div>
   );
+};
+
+CommentView.propTypes = {
+  jobID: PropTypes.string.isRequired,
 };
 
 export default CommentView;
