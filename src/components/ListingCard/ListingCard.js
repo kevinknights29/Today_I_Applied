@@ -4,6 +4,7 @@ import ReactionButton from '../ReactionButton/ReactionButton';
 import CommentBox from '../CommentBox/CommentBox';
 import CommentView from '../CommentView/CommentView';
 import useFetchReactions from '../../hooks/useFetchReactions';
+import PropTypes from 'prop-types';
 
 const ListingCard = ({job}) => {
   const {
@@ -15,7 +16,7 @@ const ListingCard = ({job}) => {
     tags,
   } = job;
   const {reactions, loading, error} = useFetchReactions(id);
-  const [applications, setApplications] = useState(0);
+  const applications = 0;
   const [show, setShow] = useState(false);
 
   const openLink = (link) => {
@@ -70,6 +71,17 @@ const ListingCard = ({job}) => {
       ) : null}
     </div>
   );
+};
+
+ListingCard.propTypes = {
+  job: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    role: PropTypes.string.isRequired,
+    company: PropTypes.string.isRequired,
+    url: PropTypes.string.isRequired,
+    location: PropTypes.string.isRequired,
+    tags: PropTypes.arrayOf(PropTypes.string).isRequired,
+  }).isRequired,
 };
 
 export default React.memo(ListingCard);

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const JobDetails = ({roleName, companyName, location}) => (
   <div className="details">
@@ -20,5 +21,11 @@ const JobDetails = ({roleName, companyName, location}) => (
     </table>
   </div>
 );
+
+JobDetails.propTypes = {
+  roleName: PropTypes.string.isRequired,
+  companyName: PropTypes.string.isRequired,
+  location: PropTypes.string.isRequired,
+};
 
 export default JobDetails;

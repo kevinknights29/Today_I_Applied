@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import login_icon from '../../assets/icons/login.png';
+import loginIcon from '../../assets/icons/login.png';
 import LoginForm from '../LoginForm/LoginForm';
 import SignUpForm from '../SignUpForm/SignUpForm';
 import {getCurrentUserId} from '../../client/supabaseAuth';
@@ -29,7 +29,7 @@ const Login = () => {
         }}
         disabled={!!userID}
       >
-        <img src={login_icon} alt="login_icon"></img>
+        <img src={loginIcon} alt="loginIcon"></img>
         <p>{userID ? 'Logged In' : 'Log in'}</p>
       </button>
       {show && renderForm()}
