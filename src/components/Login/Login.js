@@ -27,10 +27,10 @@ const Login = () => {
         onClick={() => {
           setShow(!show);
         }}
-        disabled={!!userID}
+        disabled={userID === null ? false : true}
       >
         <img src={loginIcon} alt="loginIcon"></img>
-        <p>{userID ? 'Logged In' : 'Log in'}</p>
+        <p>{userID === null ? 'Log in' : 'Logged In'}</p>
       </button>
       {show && renderForm()}
     </div>
