@@ -1,6 +1,7 @@
 import React from 'react';
 import supabase from '../../client/supabaseClient';
 import {getCurrentUserId} from '../../client/supabaseAuth';
+import PropTypes from 'prop-types';
 
 const ReactionButton = ({jobId, emoji, count, type}) => {
   const handleReaction = async () => {
@@ -44,6 +45,13 @@ const ReactionButton = ({jobId, emoji, count, type}) => {
       {emoji} {count}
     </button>
   );
+};
+
+ReactionButton.propTypes = {
+  jobId: PropTypes.string.isRequired,
+  emoji: PropTypes.string.isRequired,
+  count: PropTypes.number.isRequired,
+  type: PropTypes.string.isRequired,
 };
 
 export default ReactionButton;

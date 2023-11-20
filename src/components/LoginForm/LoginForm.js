@@ -1,11 +1,29 @@
 import React, {useState} from 'react';
 import supabase from '../../client/supabaseClient';
+import PropTypes from 'prop-types';
 
-function LoginForm(props) {
+/**
+ * Renders a login form component.
+ *
+ * @component
+ * @param {Object} props - The component props.
+ * @param {Function} props.onFormSwitch - The function to switch
+ *  between login and register forms.
+ * @return {JSX.Element} The login form component.
+ */
+function LoginForm({onFormSwitch}) {
+  // State variables
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [feedback, setFeedback] = useState('');
 
+  /**
+   * Handles the form submission.
+   *
+   * @param {Event} event - The form submission event.
+   * @return {Promise<void>} A promise that resolves when the form
+   *  submission is handled.
+   */
   const handleSubmit = async (event) => {
     event.preventDefault();
     setFeedback('');
@@ -53,11 +71,15 @@ function LoginForm(props) {
         <button type="submit">Login</button>
       </form>
       {feedback && <div className="feedback-message">{feedback}</div>}
-      <button onClick={() => props.onFormSwitch('register')}>
-        Don't have an account? <br /> Sign-up here!
+      <button onClick={() => onFormSwitch('register')}>
+        Don&apos;t have an account? <br /> Sign-up here!
       </button>
     </div>
   );
 }
+
+LoginForm.propTypes = {
+  onFormSwitch: PropTypes.func.isRequired,
+};
 
 export default LoginForm;

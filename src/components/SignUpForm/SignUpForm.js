@@ -1,7 +1,14 @@
 import React, {useState} from 'react';
 import supabase from '../../client/supabaseClient';
+import PropTypes from 'prop-types';
 
-function SignUpForm(props) {
+/**
+ * Sign up form component.
+ *
+ * @param {Object} param0 - The parameter object.
+ * @return {JSX.Element} - The sign up form JSX element.
+ */
+function SignUpForm({onFormSwitch}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [feedback, setFeedback] = useState('');
@@ -53,11 +60,15 @@ function SignUpForm(props) {
         <button type="submit">Sign Up</button>
       </form>
       {feedback && <div className="feedback-message">{feedback}</div>}
-      <button onClick={() => props.onFormSwitch('login')}>
+      <button onClick={() => onFormSwitch('login')}>
         Already have an account? <br /> Login here!
       </button>
     </div>
   );
 }
+
+SignUpForm.propTypes = {
+  onFormSwitch: PropTypes.func.isRequired,
+};
 
 export default SignUpForm;
