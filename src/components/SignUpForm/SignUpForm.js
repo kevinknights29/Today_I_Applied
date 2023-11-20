@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
  * @param {Object} param0 - The parameter object.
  * @return {JSX.Element} - The sign up form JSX element.
  */
-function SignUpForm({onFormSwitch}) {
+function SignUpForm({onFormSwitch, onAuthenticate}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [feedback, setFeedback] = useState('');
@@ -32,7 +32,7 @@ function SignUpForm({onFormSwitch}) {
       console.error(error.message);
     } else {
       setFeedback('User registered successfully!');
-      console.log('User inserted successfully:');
+      onAuthenticate();
     }
   };
 
@@ -69,6 +69,7 @@ function SignUpForm({onFormSwitch}) {
 
 SignUpForm.propTypes = {
   onFormSwitch: PropTypes.func.isRequired,
+  onAuthenticate: PropTypes.func.isRequired,
 };
 
 export default SignUpForm;

@@ -6,6 +6,7 @@ import useFetchUserID from '../../hooks/useFetchUserID';
 
 const Login = () => {
   const [show, setShow] = useState(false);
+  const [, setIsAuthenticated] = useState(false);
   const [currentForm, setCurrentForm] = useState('login');
   const userID = useFetchUserID();
 
@@ -13,11 +14,26 @@ const Login = () => {
     setCurrentForm(formName);
   };
 
+  const handleAuthentication = () => {
+    setIsAuthenticated(true);
+    setShow(false);
+  };
+
   const renderForm = () => {
     if (currentForm === 'login') {
-      return <LoginForm onFormSwitch={handleFormSwitch} />;
+      return (
+        <LoginForm
+          onFormSwitch={handleFormSwitch}
+          onAuthenticate={handleAuthentication}
+        />
+      );
     } else {
-      return <SignUpForm onFormSwitch={handleFormSwitch} />;
+      return (
+        <SignUpForm
+          onFormSwitch={handleFormSwitch}
+          onAuthenticate={handleAuthentication}
+        />
+      );
     }
   };
 

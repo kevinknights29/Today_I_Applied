@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
  *  between login and register forms.
  * @return {JSX.Element} The login form component.
  */
-function LoginForm({onFormSwitch}) {
+function LoginForm({onFormSwitch, onAuthenticate}) {
   // State variables
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -43,7 +43,7 @@ function LoginForm({onFormSwitch}) {
       console.error(error.message);
     } else {
       setFeedback('User authenticated successfully!');
-      console.log('User authenticated successfully!');
+      onAuthenticate();
     }
   };
 
@@ -80,6 +80,7 @@ function LoginForm({onFormSwitch}) {
 
 LoginForm.propTypes = {
   onFormSwitch: PropTypes.func.isRequired,
+  onAuthenticate: PropTypes.func.isRequired,
 };
 
 export default LoginForm;
