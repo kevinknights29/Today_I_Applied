@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import supabase from "../client/supabaseClient";
+import {useState, useEffect} from 'react';
+import supabase from '../client/supabaseClient';
 
 const useFetchReactions = (jobId) => {
   const [reactions, setReactions] = useState({
@@ -16,28 +16,28 @@ const useFetchReactions = (jobId) => {
 
       try {
         // Fetching the number of likes for the job
-        let { count: likesCount, error: likesError } = await supabase
-          .from("reactions")
-          .select("*", { count: "exact" })
-          .eq("job_id", jobId)
-          .eq("type", "like");
+        const {count: likesCount, error: likesError} = await supabase
+            .from('reactions')
+            .select('*', {count: 'exact'})
+            .eq('job_id', jobId)
+            .eq('type', 'like');
 
         if (likesError) throw likesError;
 
         // Fetching the number of red flags for the job
-        let { count: redFlagsCount, error: redFlagsError } = await supabase
-          .from("reactions")
-          .select("*", { count: "exact" })
-          .eq("job_id", jobId)
-          .eq("type", "red_flag");
+        const {count: redFlagsCount, error: redFlagsError} = await supabase
+            .from('reactions')
+            .select('*', {count: 'exact'})
+            .eq('job_id', jobId)
+            .eq('type', 'red_flag');
 
         if (redFlagsError) throw redFlagsError;
 
         // Fetching the number of comments for the job
-        let { count: commentsCount, error: commentsError } = await supabase
-          .from("comments")
-          .select("*", { count: "exact" })
-          .eq("job_id", jobId);
+        const {count: commentsCount, error: commentsError} = await supabase
+            .from('comments')
+            .select('*', {count: 'exact'})
+            .eq('job_id', jobId);
 
         if (commentsError) throw commentsError;
 
@@ -64,7 +64,7 @@ const useFetchReactions = (jobId) => {
     };
   }, [jobId]);
 
-  return { reactions, loading, error };
+  return {reactions, loading, error};
 };
 
 export default useFetchReactions;

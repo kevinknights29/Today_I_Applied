@@ -1,31 +1,31 @@
-import React, { useState } from "react";
-import supabase from "../../client/supabaseClient";
+import React, {useState} from 'react';
+import supabase from '../../client/supabaseClient';
 
 function LoginForm(props) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [feedback, setFeedback] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [feedback, setFeedback] = useState('');
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setFeedback("");
+    setFeedback('');
 
     if (!email || !password) {
-      setFeedback("Please enter both email and password.");
+      setFeedback('Please enter both email and password.');
       return;
     }
 
-    const { error } = await supabase.auth.signInWithPassword({
+    const {error} = await supabase.auth.signInWithPassword({
       email: email,
       password: password,
     });
 
     if (error) {
-      setFeedback("Failed to login: " + error.message);
+      setFeedback('Failed to login: ' + error.message);
       console.error(error.message);
     } else {
-      setFeedback("User authenticated successfully!");
-      console.log("User authenticated successfully!");
+      setFeedback('User authenticated successfully!');
+      console.log('User authenticated successfully!');
     }
   };
 
@@ -53,7 +53,7 @@ function LoginForm(props) {
         <button type="submit">Login</button>
       </form>
       {feedback && <div className="feedback-message">{feedback}</div>}
-      <button onClick={() => props.onFormSwitch("register")}>
+      <button onClick={() => props.onFormSwitch('register')}>
         Don't have an account? <br /> Sign-up here!
       </button>
     </div>

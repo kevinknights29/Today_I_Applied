@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import ListingForm from "../ListingForm/ListingForm";
-import logo from "../../assets/icons/icon.png";
+import React, {useState} from 'react';
+import ListingForm from '../ListingForm/ListingForm';
+import logo from '../../assets/icons/icon.png';
 
 const Header = () => {
   const [show, setShow] = useState(false);

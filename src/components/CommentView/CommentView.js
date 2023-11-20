@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
-import supabase from "../../client/supabaseClient";
-import CommentCard from "../CommentCard/CommentCard";
-import useFetchComments from "../../hooks/useFetchComments";
+import React from 'react';
+import CommentCard from '../CommentCard/CommentCard';
+import useFetchComments from '../../hooks/useFetchComments';
 
-const CommentView = ({ jobID }) => {
-  const { comments, loading, error } = useFetchComments(jobID);
+const CommentView = ({jobID}) => {
+  const {comments, loading, error} = useFetchComments(jobID);
 
   if (loading) return <div>Loading comments...</div>;
   if (error) return <div>Error fetching comments: {error}</div>;

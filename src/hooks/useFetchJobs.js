@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import supabase from "../client/supabaseClient";
+import {useState, useEffect} from 'react';
+import supabase from '../client/supabaseClient';
 
 const useFetchJobs = (selectedCategory) => {
   const [jobs, setJobs] = useState([]);
@@ -13,14 +13,14 @@ const useFetchJobs = (selectedCategory) => {
 
       try {
         let query = supabase
-          .from("jobs")
-          .select("id, role, company, url, location, tags");
+            .from('jobs')
+            .select('id, role, company, url, location, tags');
 
-        if (selectedCategory !== "All") {
-          query = query.containedBy("tags", [selectedCategory]);
+        if (selectedCategory !== 'All') {
+          query = query.containedBy('tags', [selectedCategory]);
         }
 
-        const { data: jobs, error } = await query.range(0, 9);
+        const {data: jobs, error} = await query.range(0, 9);
 
         if (error) {
           throw error;
@@ -37,7 +37,7 @@ const useFetchJobs = (selectedCategory) => {
     fetchJobs();
   }, [selectedCategory]);
 
-  return { jobs, isLoading, error };
+  return {jobs, isLoading, error};
 };
 
 export default useFetchJobs;

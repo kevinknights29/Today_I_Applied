@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 
 const Footer = () => {
   const openLink = (link) => {
-    window.open(link, "_blank");
+    window.open(link, '_blank');
   };
 
   return (
@@ -10,7 +10,7 @@ const Footer = () => {
       <footer>
         <div className="feedback">
           <button
-            onClick={() => openLink("https://forms.gle/RmQxcnnaVokKqmzs5")}
+            onClick={() => openLink('https://forms.gle/RmQxcnnaVokKqmzs5')}
           >
             Share Feedback
           </button>

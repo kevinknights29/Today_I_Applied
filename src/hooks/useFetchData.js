@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import supabase from "../client/supabaseClient";
+import {useState, useEffect} from 'react';
+import supabase from '../client/supabaseClient';
 
 const useFetchData = (tableName, selectFields, rangeLimit) => {
   const [data, setData] = useState([]);
@@ -10,10 +10,10 @@ const useFetchData = (tableName, selectFields, rangeLimit) => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        let { data: fetchedData, error } = await supabase
-          .from(tableName)
-          .select(selectFields)
-          .range(0, rangeLimit);
+        const {data: fetchedData, error} = await supabase
+            .from(tableName)
+            .select(selectFields)
+            .range(0, rangeLimit);
 
         if (error) throw error;
         setData(fetchedData);
@@ -27,7 +27,7 @@ const useFetchData = (tableName, selectFields, rangeLimit) => {
     fetchData();
   }, [tableName, selectFields, rangeLimit]);
 
-  return { data, error, loading };
+  return {data, error, loading};
 };
 
 export default useFetchData;

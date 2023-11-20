@@ -1,11 +1,11 @@
-import React, { createContext, useState, useContext } from "react";
+import React, {createContext, useState, useContext} from 'react';
 
 const CategoryContext = createContext();
 
 export const useCategory = () => useContext(CategoryContext);
 
-export const CategoryProvider = ({ children }) => {
-  const [selectedCategory, setSelectedCategory] = useState("All");
+export const CategoryProvider = ({children}) => {
+  const [selectedCategory, setSelectedCategory] = useState('All');
 
   const handleCategoryChange = (category) => {
     setSelectedCategory(category);
@@ -13,7 +13,7 @@ export const CategoryProvider = ({ children }) => {
 
   return (
     <CategoryContext.Provider
-      value={{ selectedCategory, handleCategoryChange }}
+      value={{selectedCategory, handleCategoryChange}}
     >
       {children}
     </CategoryContext.Provider>

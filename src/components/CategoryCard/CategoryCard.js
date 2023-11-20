@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-const CategoryCard = ({ category, onCategoryChange }) => {
+const CategoryCard = ({category, onCategoryChange}) => {
   return (
     <div>
       <button

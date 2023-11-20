@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import supabase from "../client/supabaseClient";
+import {useState, useEffect} from 'react';
+import supabase from '../client/supabaseClient';
 
 const useFetchComments = (jobID) => {
   const [comments, setComments] = useState([]);
@@ -11,10 +11,10 @@ const useFetchComments = (jobID) => {
       setLoading(true);
 
       try {
-        let { data: fetchedComments, error } = await supabase
-          .from("comments")
-          .select("id, content, created_at")
-          .eq("job_id", jobID);
+        const {data: fetchedComments, error} = await supabase
+            .from('comments')
+            .select('id, content, created_at')
+            .eq('job_id', jobID);
 
         if (error) throw error;
         setComments(fetchedComments);
@@ -28,7 +28,7 @@ const useFetchComments = (jobID) => {
     fetchComments();
   }, [jobID]);
 
-  return { comments, loading, error };
+  return {comments, loading, error};
 };
 
 export default useFetchComments;

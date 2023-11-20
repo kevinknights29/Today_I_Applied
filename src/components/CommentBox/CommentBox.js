@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import supabase from "../../client/supabaseClient";
-import { getCurrentUserId } from "../../client/supabaseAuth";
+import React, {useState} from 'react';
+import supabase from '../../client/supabaseClient';
+import {getCurrentUserId} from '../../client/supabaseAuth';
 
-const CommentBox = ({ jobID }) => {
-  const [comment, setComment] = useState("");
-  const [feedback, setFeedback] = useState("");
+const CommentBox = ({jobID}) => {
+  const [comment, setComment] = useState('');
+  const [feedback, setFeedback] = useState('');
   const maxCommentLength = 280;
 
   const handleCommentChange = (event) => {
@@ -17,17 +17,17 @@ const CommentBox = ({ jobID }) => {
     event.preventDefault();
 
     if (!comment.trim()) {
-      setFeedback("Comment cannot be empty");
+      setFeedback('Comment cannot be empty');
       return;
     }
 
     const userID = await getCurrentUserId();
     if (!userID) {
-      setFeedback("You must be logged in to post a comment");
+      setFeedback('You must be logged in to post a comment');
       return;
     }
 
-    const { error } = await supabase.from("comments").insert([
+    const {error} = await supabase.from('comments').insert([
       {
         user_id: userID,
         job_id: jobID,
@@ -37,11 +37,11 @@ const CommentBox = ({ jobID }) => {
 
     if (error) {
       console.error(error.message);
-      setFeedback("Failed to post comment. Please try again.");
+      setFeedback('Failed to post comment. Please try again.');
     } else {
-      console.log("Comment inserted successfully!");
-      setFeedback("Comment posted successfully.");
-      setComment("");
+      console.log('Comment inserted successfully!');
+      setFeedback('Comment posted successfully.');
+      setComment('');
     }
   };
 
@@ -58,7 +58,7 @@ const CommentBox = ({ jobID }) => {
       />
       <span>{280 - comment.length}</span>
       <button type="submit">Submit</button>
-      {feedback && <div className="feedback-message">{feedback}</div>}{" "}
+      {feedback && <div className="feedback-message">{feedback}</div>}{' '}
     </form>
   );
 };

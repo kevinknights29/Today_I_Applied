@@ -1,11 +1,11 @@
-import React from "react";
-import ListingCard from "../ListingCard/ListingCard";
-import { useCategory } from "../../context/CategoryContext";
-import useFetchJobs from "../../hooks/useFetchJobs";
+import React from 'react';
+import ListingCard from '../ListingCard/ListingCard';
+import {useCategory} from '../../context/CategoryContext';
+import useFetchJobs from '../../hooks/useFetchJobs';
 
 const Listing = () => {
-  const { selectedCategory } = useCategory();
-  const { jobs, isLoading, error } = useFetchJobs(selectedCategory);
+  const {selectedCategory} = useCategory();
+  const {jobs, isLoading, error} = useFetchJobs(selectedCategory);
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;

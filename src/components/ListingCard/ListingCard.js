@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import JobDetails from "../JobDetails/JobDetails";
-import ReactionButton from "../ReactionButton/ReactionButton";
-import CommentBox from "../CommentBox/CommentBox";
-import CommentView from "../CommentView/CommentView";
-import useFetchReactions from "../../hooks/useFetchReactions";
+import React, {useState} from 'react';
+import JobDetails from '../JobDetails/JobDetails';
+import ReactionButton from '../ReactionButton/ReactionButton';
+import CommentBox from '../CommentBox/CommentBox';
+import CommentView from '../CommentView/CommentView';
+import useFetchReactions from '../../hooks/useFetchReactions';
 
-const ListingCard = ({ job }) => {
+const ListingCard = ({job}) => {
   const {
     id,
     role: roleName,
@@ -14,12 +14,12 @@ const ListingCard = ({ job }) => {
     location,
     tags,
   } = job;
-  const { reactions, loading, error } = useFetchReactions(id);
+  const {reactions, loading, error} = useFetchReactions(id);
   const [applications, setApplications] = useState(0);
   const [show, setShow] = useState(false);
 
   const openLink = (link) => {
-    window.open(link, "_blank");
+    window.open(link, '_blank');
   };
 
   if (loading) return <div>Loading...</div>;

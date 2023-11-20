@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-const JobDetails = ({ roleName, companyName, location }) => (
+const JobDetails = ({roleName, companyName, location}) => (
   <div className="details">
     <table>
       <tbody>

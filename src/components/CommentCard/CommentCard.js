@@ -1,7 +1,7 @@
-import React from "react";
-import { formatDate } from "../../utils/dateUtils";
+import React from 'react';
+import {formatDate} from '../../utils/dateUtils';
 
-const CommentCard = ({ comment: { content, created_at } }) => {
+const CommentCard = ({comment: {content, created_at}}) => {
   const formattedDate = formatDate(created_at);
 
   return (

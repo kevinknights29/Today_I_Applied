@@ -1,14 +1,14 @@
-import React, { useState } from "react";
-import supabase from "../../client/supabaseClient";
-import { getCurrentUserId } from "../../client/supabaseAuth";
+import React, {useState} from 'react';
+import supabase from '../../client/supabaseClient';
+import {getCurrentUserId} from '../../client/supabaseAuth';
 
 const ListingForm = () => {
-  const [roleName, setRole] = useState("");
-  const [companyName, setCompanyName] = useState("");
-  const [applicationUrl, setApplicationUrl] = useState("");
-  const [location, setLocation] = useState("Panama City, Panama");
-  const [tags, setTags] = useState("Engineering");
-  const [feedback, setFeedback] = useState("");
+  const [roleName, setRole] = useState('');
+  const [companyName, setCompanyName] = useState('');
+  const [applicationUrl, setApplicationUrl] = useState('');
+  const [location, setLocation] = useState('Panama City, Panama');
+  const [tags, setTags] = useState('Engineering');
+  const [feedback, setFeedback] = useState('');
 
   const handleEventChange = (event, handler) => {
     handler(event.target.value);
@@ -28,16 +28,16 @@ const ListingForm = () => {
     const userID = await getCurrentUserId();
 
     if (!userID) {
-      setFeedback("User must be logged in to post a job.");
+      setFeedback('User must be logged in to post a job.');
       return;
     }
 
     if (!isValidUrl(applicationUrl)) {
-      setFeedback("Please enter a valid URL.");
+      setFeedback('Please enter a valid URL.');
       return;
     }
 
-    const { error } = await supabase.from("jobs").insert([
+    const {error} = await supabase.from('jobs').insert([
       {
         user_id: userID,
         role: roleName,
@@ -49,14 +49,14 @@ const ListingForm = () => {
     ]);
 
     if (error) {
-      setFeedback("Error submitting the job: " + error.message);
+      setFeedback('Error submitting the job: ' + error.message);
     } else {
-      setFeedback("Job inserted successfully!");
-      setRole("");
-      setCompanyName("");
-      setApplicationUrl("");
-      setLocation("Panama City, Panama");
-      setTags("Engineering");
+      setFeedback('Job inserted successfully!');
+      setRole('');
+      setCompanyName('');
+      setApplicationUrl('');
+      setLocation('Panama City, Panama');
+      setTags('Engineering');
     }
   };
 
