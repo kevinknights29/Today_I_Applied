@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import supabase from '../../client/supabaseClient';
-import {getCurrentUserId} from '../../client/supabaseAuth';
+import useFetchUserID from '../../hooks/useFetchUserID';
 
 const ListingForm = () => {
   const [roleName, setRole] = useState('');
@@ -25,7 +25,7 @@ const ListingForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const userID = await getCurrentUserId();
+    const userID = useFetchUserID();
 
     if (!userID) {
       setFeedback('User must be logged in to post a job.');

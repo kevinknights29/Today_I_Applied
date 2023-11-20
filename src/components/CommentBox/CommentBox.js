@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import supabase from '../../client/supabaseClient';
-import {getCurrentUserId} from '../../client/supabaseAuth';
+import useFetchUserID from '../../hooks/useFetchUserID';
 import PropTypes from 'prop-types';
 
 const CommentBox = ({jobID}) => {
@@ -22,7 +22,7 @@ const CommentBox = ({jobID}) => {
       return;
     }
 
-    const userID = await getCurrentUserId();
+    const userID = useFetchUserID();
     if (!userID) {
       setFeedback('You must be logged in to post a comment');
       return;

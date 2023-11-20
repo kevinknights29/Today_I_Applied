@@ -2,12 +2,12 @@ import React, {useState} from 'react';
 import loginIcon from '../../assets/icons/login.png';
 import LoginForm from '../LoginForm/LoginForm';
 import SignUpForm from '../SignUpForm/SignUpForm';
-import {getCurrentUserId} from '../../client/supabaseAuth';
+import useFetchUserID from '../../hooks/useFetchUserID';
 
 const Login = () => {
   const [show, setShow] = useState(false);
   const [currentForm, setCurrentForm] = useState('login');
-  const userID = getCurrentUserId();
+  const userID = useFetchUserID();
 
   const handleFormSwitch = (formName) => {
     setCurrentForm(formName);
