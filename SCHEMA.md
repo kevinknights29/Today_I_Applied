@@ -26,17 +26,17 @@ description: job information.
 - location (text)
 - created_at (timestamp)
 - last_update_at (timestamp)
+- tags (array[text])
+- source (text)
+- source_listing_id (text)
 
-### tags
+### category
 
 description: tag which categorizes jobs listed.
 
 - id (integer, primary key)
-- user_id (integer, foreign key references users.id)
-- job_id (integer, foreign key references jobs.id)
-- tags (string)
+- category (string)
 - created_at (timestamp)
-- last_update_at (timestamp)
 
 ### applications
 
