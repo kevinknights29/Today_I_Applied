@@ -34,7 +34,7 @@ const Listing = () => {
         ))}
       </ul>
 
-      <div className="pagination">
+      <div className="pagination-container">
         <button onClick={prevPage} disabled={currentPage === 1}>
           Previous
         </button>
